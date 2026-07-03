@@ -5,7 +5,9 @@
 итоговый тест. Backend на FastAPI, frontend на React.
 
 **Репозиторий:** [github.com/Dampazy/api-design-course](https://github.com/Dampazy/api-design-course)
-**Демо (после подключения к Render):** см. [docs/DEPLOY.md](docs/DEPLOY.md)
+**Живая демонстрация:** [api-design-course-qyqg.onrender.com](https://api-design-course-qyqg.onrender.com)
+(бесплатный план Render — засыпает после 15 минут простоя, первый запрос
+после простоя может занять ~30–50 секунд, см. [docs/DEPLOY.md](docs/DEPLOY.md))
 
 ## Реквизиты практики
 

@@ -5,9 +5,10 @@
 CORS между фронтендом и бэкендом в проде. Конфигурация — в `render.yaml`
 в корне репозитория (Render Blueprint).
 
-## Репозиторий
+## Репозиторий и живой URL
 
-Код: [github.com/Dampazy/api-design-course](https://github.com/Dampazy/api-design-course)
+- Код: [github.com/Dampazy/api-design-course](https://github.com/Dampazy/api-design-course)
+- Развёрнутое приложение: [api-design-course-qyqg.onrender.com](https://api-design-course-qyqg.onrender.com)
 
 ## Шаги подключения (один раз)
 
