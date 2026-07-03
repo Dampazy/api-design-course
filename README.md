@@ -4,6 +4,9 @@
 6 теоретических блоков, 18 практических заданий с автопроверкой ответов и
 итоговый тест. Backend на FastAPI, frontend на React.
 
+**Репозиторий:** [github.com/Dampazy/api-design-course](https://github.com/Dampazy/api-design-course)
+**Демо (после подключения к Render):** см. [docs/DEPLOY.md](docs/DEPLOY.md)
+
 ## Реквизиты практики
 
 - **Тема:** «Создание интерактивных методических материалов по
@@ -48,6 +51,7 @@ scripts/    — scripts/run_all_tests.sh — запуск всех тестов 
 ## Документация
 
 - [docs/SETUP.md](docs/SETUP.md) — подробная инструкция по запуску и тестированию
+- [docs/DEPLOY.md](docs/DEPLOY.md) — деплой на Render.com (постоянная ссылка для показа)
 - [docs/student-guide/theory-conspect.md](docs/student-guide/theory-conspect.md) — полный конспект теории курса
 - [docs/student-guide/glossary.md](docs/student-guide/glossary.md) — глоссарий терминов
 - [docs/report/](docs/report/) — отчёт по практике (обзор аналогов, архитектура, аналитика, заключение)
