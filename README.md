@@ -1,8 +1,9 @@
 # Проектирование API — интерактивная учебная платформа
 
 Учебная веб-платформа для изучения принципов проектирования REST API:
-6 теоретических блоков, 18 практических заданий с автопроверкой ответов и
-итоговый тест. Backend на FastAPI, frontend на React.
+6 теоретических блоков, 30 практических заданий (6 форматов автопроверки,
+включая написание HTTP-запроса с нуля) и итоговый тест из 8 вопросов.
+Backend на FastAPI, frontend на React.
 
 **Репозиторий:** [github.com/Dampazy/api-design-course](https://github.com/Dampazy/api-design-course)
 **Живая демонстрация:** [api-design-course-qyqg.onrender.com](https://api-design-course-qyqg.onrender.com)
@@ -60,7 +61,7 @@ scripts/    — scripts/run_all_tests.sh — запуск всех тестов 
 
 ## Тесты
 
-45 backend-тестов (pytest) + 4 frontend smoke-теста (Playwright):
+58 backend-тестов (pytest) + 5 frontend smoke-тестов (Playwright):
 
 ```bash
 ./scripts/run_all_tests.sh

@@ -594,4 +594,304 @@ TASKS = [
         ),
         "is_final_test": True,
     },
+    # --- Additional practice tasks (batch 2): "write the request yourself"
+    # (API_REQUEST) plus one more question per block reinforcing the
+    # extended theory sections (checklists, decision trees, PKCE, etc.) ---
+    {
+        "theory_slug": "rest-basics-http-methods",
+        "order_index": 4,
+        "title": "Запрос на полную замену ресурса",
+        "statement_markdown": (
+            "Напишите запрос для **полной замены** статьи с id=15 (у вас "
+            "уже готов JSON с новым содержимым статьи — важно выбрать "
+            "подходящий HTTP-метод и путь, тело запроса можно не писать)."
+        ),
+        "task_type": "API_REQUEST",
+        "options": None,
+        "correct_answer": {"method": "PUT", "path": "/articles/15"},
+        "check_config": {},
+        "explanation_markdown": (
+            "`PUT /articles/15` — полная замена существующего ресурса. "
+            "`PATCH` подошёл бы только для частичного обновления."
+        ),
+        "is_final_test": False,
+    },
+    {
+        "theory_slug": "rest-basics-http-methods",
+        "order_index": 5,
+        "title": "Что не входит в чек-лист перед отправкой запроса",
+        "statement_markdown": (
+            "Что из перечисленного **не** относится к чек-листу «перед "
+            "отправкой запроса» из этого блока теории?"
+        ),
+        "task_type": "SINGLE_CHOICE",
+        "options": {
+            "choices": [
+                "Соответствие метода характеру операции",
+                "Риск дублирования при повторной отправке POST",
+                "Название СУБД, используемой на сервере",
+                "Наличие Content-Type для запроса с телом",
+            ]
+        },
+        "correct_answer": 2,
+        "check_config": {},
+        "explanation_markdown": (
+            "Чек-лист касается семантики запроса на стороне клиента; "
+            "внутренняя реализация сервера (например, конкретная СУБД) "
+            "клиенту не видна и не должна на неё влиять."
+        ),
+        "is_final_test": False,
+    },
+    {
+        "theory_slug": "status-codes-error-handling",
+        "order_index": 4,
+        "title": "Запрос на отмену подписки",
+        "statement_markdown": (
+            "Напишите запрос на отмену подписки с id=9 (это бизнес-команда, "
+            "а не просто изменение одного поля — используйте под-ресурс с "
+            "существительным-командой в пути, как в примере с публикацией "
+            "статьи из блока 1)."
+        ),
+        "task_type": "API_REQUEST",
+        "options": None,
+        "correct_answer": {"method": "POST", "path": "/subscriptions/9/cancel"},
+        "check_config": {},
+        "explanation_markdown": (
+            "`POST /subscriptions/9/cancel` — команда-действие с побочными "
+            "эффектами (например, немедленное прекращение доступа), "
+            "смоделированная как под-ресурс."
+        ),
+        "is_final_test": False,
+    },
+    {
+        "theory_slug": "status-codes-error-handling",
+        "order_index": 5,
+        "title": "Код ответа для отрицательной цены",
+        "statement_markdown": (
+            "Сервер получил синтаксически валидный JSON, но поле `price` "
+            "в нём отрицательное. Согласно дереву решений из теории, какой "
+            "код ответа следует вернуть?"
+        ),
+        "task_type": "SINGLE_CHOICE",
+        "options": {
+            "choices": [
+                "400 Bad Request",
+                "404 Not Found",
+                "422 Unprocessable Entity",
+                "500 Internal Server Error",
+            ]
+        },
+        "correct_answer": 2,
+        "check_config": {},
+        "explanation_markdown": (
+            "JSON синтаксически корректен, но не проходит бизнес-валидацию "
+            "— это случай `422 Unprocessable Entity`, а не `400` (который "
+            "про синтаксические ошибки)."
+        ),
+        "is_final_test": False,
+    },
+    {
+        "theory_slug": "resource-naming-versioning",
+        "order_index": 4,
+        "title": "Запрос на вложенный ресурс",
+        "statement_markdown": (
+            "Напишите запрос для получения комментария с id=301 к статье "
+            "с id=15, используя вложенный путь."
+        ),
+        "task_type": "API_REQUEST",
+        "options": None,
+        "correct_answer": {"method": "GET", "path": "/articles/15/comments/301"},
+        "check_config": {},
+        "explanation_markdown": (
+            "`GET /articles/15/comments/301` — вложенность отражает "
+            "отношение «комментарий принадлежит статье»."
+        ),
+        "is_final_test": False,
+    },
+    {
+        "theory_slug": "resource-naming-versioning",
+        "order_index": 5,
+        "title": "Версионирование через дату релиза",
+        "statement_markdown": (
+            "Какая компания из рассмотренных примеров использует "
+            "версионирование API через заголовок с **датой релиза**, а не "
+            "номером версии?"
+        ),
+        "task_type": "SINGLE_CHOICE",
+        "options": {"choices": ["Twitter/X", "GitHub", "Stripe", "Facebook"]},
+        "correct_answer": 2,
+        "check_config": {},
+        "explanation_markdown": (
+            "Stripe использует заголовок `Stripe-Version` со значением-"
+            "датой (например, `2024-06-20`), а не номером вроде `v2`."
+        ),
+        "is_final_test": False,
+    },
+    {
+        "theory_slug": "auth-authorization",
+        "order_index": 4,
+        "title": "Код ответа при нехватке скоупа",
+        "statement_markdown": (
+            "Токен клиента валиден (аутентификация прошла успешно), но у "
+            "него нет нужного скоупа для запрошенной операции. Какой код "
+            "ответа должен вернуть сервер?"
+        ),
+        "task_type": "SINGLE_CHOICE",
+        "options": {
+            "choices": [
+                "401 Unauthorized",
+                "403 Forbidden",
+                "400 Bad Request",
+                "404 Not Found",
+            ]
+        },
+        "correct_answer": 1,
+        "check_config": {},
+        "explanation_markdown": (
+            "401 означает «вы не аутентифицированы», а токен валиден — "
+            "значит, дело в правах, и корректный код — 403 Forbidden."
+        ),
+        "is_final_test": False,
+    },
+    {
+        "theory_slug": "auth-authorization",
+        "order_index": 5,
+        "title": "Расширение OAuth2 для мобильных приложений",
+        "statement_markdown": (
+            "Как называется расширение OAuth2 (RFC 7636), позволяющее "
+            "безопасно использовать Authorization Code Flow в мобильных и "
+            "SPA-приложениях без хранения `client_secret`?"
+        ),
+        "task_type": "FILL_BLANK",
+        "options": None,
+        "correct_answer": "PKCE",
+        "check_config": {"case_sensitive": False},
+        "explanation_markdown": (
+            "PKCE (Proof Key for Code Exchange) заменяет постоянный "
+            "`client_secret` на одноразовую пару code_verifier/code_challenge."
+        ),
+        "is_final_test": False,
+    },
+    {
+        "theory_slug": "pagination-filtering-idempotency",
+        "order_index": 4,
+        "title": "Запрос с фильтром, сортировкой и пагинацией",
+        "statement_markdown": (
+            "Напишите запрос на получение оплаченных заказов "
+            "(`status=paid`), отсортированных по дате создания по "
+            "убыванию, не более 20 штук за раз."
+        ),
+        "task_type": "API_REQUEST",
+        "options": None,
+        "correct_answer": {
+            "method": "GET",
+            "path": "/orders",
+            "query": {"status": "paid", "sort": "-created_at", "limit": "20"},
+        },
+        "check_config": {},
+        "explanation_markdown": (
+            "`GET /orders?status=paid&sort=-created_at&limit=20` — порядок "
+            "query-параметров в URL не важен, автопроверка сравнивает их "
+            "как набор пар ключ-значение."
+        ),
+        "is_final_test": False,
+    },
+    {
+        "theory_slug": "pagination-filtering-idempotency",
+        "order_index": 5,
+        "title": "Пагинация vs rate limiting",
+        "statement_markdown": (
+            "Чем rate limiting принципиально отличается от пагинации?"
+        ),
+        "task_type": "SINGLE_CHOICE",
+        "options": {
+            "choices": [
+                "Rate limiting ограничивает частоту запросов во времени, "
+                "пагинация — размер одного ответа",
+                "Это два названия одного и того же механизма",
+                "Пагинация применяется только к POST-запросам",
+                "Rate limiting нужен только для платных API",
+            ]
+        },
+        "correct_answer": 0,
+        "check_config": {},
+        "explanation_markdown": (
+            "Пагинация решает задачу «сколько записей вернуть за раз», "
+            "rate limiting — «сколько запросов можно сделать за период "
+            "времени». Механизмы независимы и часто используются вместе."
+        ),
+        "is_final_test": False,
+    },
+    {
+        "theory_slug": "documentation-rate-limiting-hateoas",
+        "order_index": 4,
+        "title": "Заголовок отключения эндпоинта",
+        "statement_markdown": (
+            "Какой HTTP-заголовок (RFC 8594) сообщает клиенту дату, когда "
+            "эндпоинт будет отключён?"
+        ),
+        "task_type": "FILL_BLANK",
+        "options": None,
+        "correct_answer": "Sunset",
+        "check_config": {"case_sensitive": False},
+        "explanation_markdown": (
+            "Заголовок `Sunset` указывает дату отключения ресурса/эндпоинта, "
+            "часто в паре с заголовком `Deprecation`."
+        ),
+        "is_final_test": False,
+    },
+    {
+        "theory_slug": "documentation-rate-limiting-hateoas",
+        "order_index": 5,
+        "title": "Проверка подлинности webhook-запроса",
+        "statement_markdown": (
+            "Как webhook-эндпоинт должен проверять, что входящий "
+            "`POST`-запрос действительно прислан доверенным сервером, а не "
+            "злоумышленником?"
+        ),
+        "task_type": "SINGLE_CHOICE",
+        "options": {
+            "choices": [
+                "Проверить IP-адрес отправителя вручную",
+                "Сверить криптографическую подпись тела запроса из "
+                "заголовка (например, X-Hub-Signature-256)",
+                "Довериться, если Content-Type: application/json",
+                "Проверить, что запрос пришёл по HTTPS",
+            ]
+        },
+        "correct_answer": 1,
+        "check_config": {},
+        "explanation_markdown": (
+            "Только криптографическая подпись, вычисленная общим секретом, "
+            "надёжно доказывает, что тело запроса не подделано и прислано "
+            "именно ожидаемым отправителем."
+        ),
+        "is_final_test": False,
+    },
+    # --- Additional final test question (transfer of skill: write a
+    # cursor-paginated request from scratch) ---
+    {
+        "theory_slug": "pagination-filtering-idempotency",
+        "order_index": 6,
+        "title": "[Финальный тест] Запрос со курсорной пагинацией",
+        "statement_markdown": (
+            "Напишите запрос для получения следующей страницы отзывов к "
+            "товару с id=88, используя курсорную пагинацию: не более 10 "
+            "записей за раз, курсор следующей страницы — `eyJpZCI6MzB9`."
+        ),
+        "task_type": "API_REQUEST",
+        "options": None,
+        "correct_answer": {
+            "method": "GET",
+            "path": "/products/88/reviews",
+            "query": {"limit": "10", "cursor": "eyJpZCI6MzB9"},
+        },
+        "check_config": {},
+        "explanation_markdown": (
+            "`GET /products/88/reviews?limit=10&cursor=eyJpZCI6MzB9` — "
+            "вложенный путь для отзывов конкретного товара плюс параметры "
+            "курсорной пагинации."
+        ),
+        "is_final_test": True,
+    },
 ]

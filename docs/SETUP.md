@@ -50,7 +50,7 @@ npm run dev
 
 ## Тесты
 
-Backend (pytest, 45 тестов — unit-тесты чекера автопроверки + integration
+Backend (pytest, 58 тестов — unit-тесты чекера автопроверки + integration
 тесты эндпоинтов, включая провокационные edge cases):
 
 ```bash

@@ -6,6 +6,9 @@ import SubmissionResult from '../components/SubmissionResult.jsx'
 import MultipleChoiceForm from '../components/answer-forms/MultipleChoiceForm.jsx'
 import FillBlankForm from '../components/answer-forms/FillBlankForm.jsx'
 import OrderingForm from '../components/answer-forms/OrderingForm.jsx'
+import ApiRequestForm from '../components/answer-forms/ApiRequestForm.jsx'
+
+const TEXT_ANSWER_TYPES = ['JSON_FIX', 'FILL_BLANK', 'API_REQUEST']
 
 function defaultAnswerFor(taskType) {
   switch (taskType) {
@@ -16,7 +19,7 @@ function defaultAnswerFor(taskType) {
     case 'ORDERING':
       return null
     default:
-      return taskType === 'JSON_FIX' || taskType === 'FILL_BLANK' ? '' : null
+      return TEXT_ANSWER_TYPES.includes(taskType) ? '' : null
   }
 }
 
@@ -95,6 +98,9 @@ export default function TaskDetail() {
         )}
         {task.task_type === 'MATCHING' && (
           <OrderingForm mode="matching" options={task.options} value={answer} onChange={setAnswer} />
+        )}
+        {task.task_type === 'API_REQUEST' && (
+          <ApiRequestForm value={answer} onChange={setAnswer} />
         )}
       </div>
 

@@ -39,10 +39,10 @@ def test_progress_reflects_solved_task(client, session_headers):
 
     after = client.get("/api/progress", headers=session_headers).json()
     assert after["solved"] == 1
-    assert after["total_tasks"] == 18
+    assert after["total_tasks"] == 30
     block_1 = next(b for b in after["by_block"] if b["theory_block_id"] == 1)
     assert block_1["solved"] == 1
-    assert block_1["total"] == 3
+    assert block_1["total"] == 5
 
 
 def test_progress_is_isolated_per_session(client):

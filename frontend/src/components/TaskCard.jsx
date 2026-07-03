@@ -7,6 +7,7 @@ const TYPE_LABELS = {
   ORDERING: 'Упорядочить шаги',
   MATCHING: 'Сопоставить пары',
   JSON_FIX: 'Исправить JSON',
+  API_REQUEST: 'Написать запрос',
 }
 
 export default function TaskCard({ task, solved }) {

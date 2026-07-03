@@ -35,7 +35,7 @@ test('practice: incorrect then correct answer updates progress', async ({ page }
   await expect(page.getByText('Верно!')).toBeVisible()
 
   await page.getByRole('link', { name: 'К списку заданий' }).click()
-  await expect(page.getByText(/Решено 1 из 18/)).toBeVisible()
+  await expect(page.getByText(/Решено 1 из 30/)).toBeVisible()
 })
 
 test('progress page shows aggregate stats table', async ({ page }) => {
@@ -43,4 +43,21 @@ test('progress page shows aggregate stats table', async ({ page }) => {
   await expect(page.getByRole('heading', { name: 'Прогресс', exact: true })).toBeVisible()
   await expect(page.getByRole('heading', { name: 'Аналитика по всем участникам' })).toBeVisible()
   await expect(page.locator('table.stats-table')).toBeVisible()
+})
+
+test('practice: API_REQUEST task accepts a hand-written request', async ({ page }) => {
+  await page.goto('/practice')
+  await page.getByText('Запрос на полную замену ресурса').click()
+  await expect(page.getByRole('heading', { name: 'Запрос на полную замену ресурса' })).toBeVisible()
+
+  // Wrong method first (provocative edge case: PATCH instead of PUT for a
+  // full-replace task).
+  await page.locator('textarea').fill('PATCH /articles/15')
+  await page.getByRole('button', { name: 'Проверить ответ' }).click()
+  await expect(page.getByText('Неверно')).toBeVisible()
+
+  await page.getByRole('button', { name: 'Попробовать снова' }).click()
+  await page.locator('textarea').fill('PUT /articles/15')
+  await page.getByRole('button', { name: 'Проверить ответ' }).click()
+  await expect(page.getByText('Верно!')).toBeVisible()
 })

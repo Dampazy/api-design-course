@@ -16,6 +16,7 @@ class TaskType(str, enum.Enum):
     ORDERING = "ORDERING"
     MATCHING = "MATCHING"
     JSON_FIX = "JSON_FIX"
+    API_REQUEST = "API_REQUEST"
 
 
 class Task(Base):

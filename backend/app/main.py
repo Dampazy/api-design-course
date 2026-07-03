@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+from contextlib import asynccontextmanager
 from pathlib import Path
+from typing import AsyncIterator
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -15,7 +17,28 @@ from app.routers import progress, stats, tasks, theory
 
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="API Design Course Platform")
+
+def seed_if_empty() -> None:
+    """On a fresh deploy (e.g. Render's ephemeral filesystem after a
+    restart) the SQLite file has no content yet — seed it automatically so
+    the site works without a manual release step."""
+    db = SessionLocal()
+    try:
+        if db.query(TheoryBlock).count() == 0:
+            from app.seed.seed import run as seed_run
+
+            seed_run()
+    finally:
+        db.close()
+
+
+@asynccontextmanager
+async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
+    seed_if_empty()
+    yield
+
+
+app = FastAPI(title="API Design Course Platform", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
@@ -34,21 +57,6 @@ app.include_router(stats.router)
 @app.get("/api/health")
 def health() -> dict:
     return {"status": "ok"}
-
-
-@app.on_event("startup")
-def seed_if_empty() -> None:
-    """On a fresh deploy (e.g. Render's ephemeral filesystem after a
-    restart) the SQLite file has no content yet — seed it automatically so
-    the site works without a manual release step."""
-    db = SessionLocal()
-    try:
-        if db.query(TheoryBlock).count() == 0:
-            from app.seed.seed import run as seed_run
-
-            seed_run()
-    finally:
-        db.close()
 
 
 # Serve the built React app (frontend/dist) from the same FastAPI process in
